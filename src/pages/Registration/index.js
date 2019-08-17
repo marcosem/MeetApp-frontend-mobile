@@ -4,7 +4,7 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 // import { Container } from './styles';
 
-export default function Dashboard() {
+export default function Registration() {
   return (
     <>
       <Header />
@@ -13,9 +13,9 @@ export default function Dashboard() {
   );
 }
 
-Dashboard.navigationOptions = {
-  tabBarLabel: 'Meetups',
+Registration.navigationOptions = {
+  tabBarLabel: 'Registrations',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="format-list-bulleted" size={20} color={tintColor} />
+    <Icon name="local-offer" size={20} color={tintColor} />
   ),
 };

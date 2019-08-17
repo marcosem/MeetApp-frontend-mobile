@@ -4,7 +4,7 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 // import { Container } from './styles';
 
-export default function Dashboard() {
+export default function Profile() {
   return (
     <>
       <Header />
@@ -13,9 +13,9 @@ export default function Dashboard() {
   );
 }
 
-Dashboard.navigationOptions = {
-  tabBarLabel: 'Meetups',
+Profile.navigationOptions = {
+  tabBarLabel: 'My profile',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="format-list-bulleted" size={20} color={tintColor} />
+    <Icon name="person" size={20} color={tintColor} />
   ),
 };
