@@ -6,6 +6,7 @@ export const Container = styled.View`
   background: #fff;
   margin-bottom: 20px;
   border-radius: 4px;
+  opacity: ${props => (props.past ? 0.7 : 1)};
 `;
 
 export const TopImage = styled.View`
