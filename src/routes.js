@@ -9,7 +9,7 @@ import SignUp from './pages/SignUp';
 
 // import Header from './pages/Header';
 import Dashboard from './pages/Dashboard';
-import Registration from './pages/Registration';
+import Subscription from './pages/Subscription';
 import Profile from './pages/Profile';
 
 export default (isSigned = false) =>
@@ -23,7 +23,7 @@ export default (isSigned = false) =>
         App: createBottomTabNavigator(
           {
             Dashboard,
-            Registration,
+            Subscription,
             Profile,
           },
           {

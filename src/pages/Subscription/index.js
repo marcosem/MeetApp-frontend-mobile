@@ -4,7 +4,7 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 // import { Container } from './styles';
 
-export default function Registration() {
+export default function Subscription() {
   return (
     <>
       <Header />
@@ -13,8 +13,8 @@ export default function Registration() {
   );
 }
 
-Registration.navigationOptions = {
-  tabBarLabel: 'Registrations',
+Subscription.navigationOptions = {
+  tabBarLabel: 'Subscriptions',
   tabBarIcon: ({ tintColor }) => (
     <Icon name="local-offer" size={20} color={tintColor} />
   ),
