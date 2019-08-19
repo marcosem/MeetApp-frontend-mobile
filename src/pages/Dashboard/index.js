@@ -31,6 +31,7 @@ export default function Dashboard() {
     // Using Semaphores to handle infinit scrolling
     if (loading === false && doMerge === false) {
       setMeetups(meetupsAux);
+      setRefreshing(false);
     }
   }, [doMerge, loading, meetupsAux]);
 
@@ -50,6 +51,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function loadMeetups() {
+      setRefreshing(true);
       setLoading(true);
       const response = await api.get('meetups', {
         params: {
