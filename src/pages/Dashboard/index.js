@@ -20,17 +20,18 @@ import { subscribeMeetupRequest } from '~/store/modules/meetup/actions';
 export default function Dashboard() {
   const dispatch = useDispatch();
 
-  const [meetups, setMeetups] = useState([]);
-  const [meetupsAux, setMeetupsAux] = useState([]);
+  const [meetups, setMeetups] = useState([]); // meetup list
+  const [meetupsAux, setMeetupsAux] = useState([]); // Temporary meetup list
 
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [readableDate, setReadableDate] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [refreshing, setRefreshing] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date()); // Current date
+  const [readableDate, setReadableDate] = useState(''); // Readable date of current date
+  const [currentPage, setCurrentPage] = useState(1); // Define the current page
+  const [refreshing, setRefreshing] = useState(false); // Handle screen refreshing
   const [loading, setLoading] = useState(false); // Using Semaphores to handle infinit scrolling
   const [doMerge, setDoMerge] = useState(false); // Using Semaphores to handle infinit scrolling
   const [reload, setReload] = useState(false); // Using this to handle realoading
 
+  // Store to Meetup list the temporary list
   useEffect(() => {
     // Using Semaphores to handle infinit scrolling
     if (loading === false && doMerge === false) {
@@ -39,6 +40,7 @@ export default function Dashboard() {
     }
   }, [doMerge, loading, meetupsAux]);
 
+  // If meetup list is different of temporary list, merge them both in a single one
   useEffect(() => {
     // Using Semaphores to handle infinit scrolling
     if (loading === false && doMerge === true) {
@@ -53,6 +55,7 @@ export default function Dashboard() {
     }
   }, [doMerge, loading, meetups, meetupsAux]);
 
+  // Reload the meetups list
   useEffect(() => {
     // if reload is changed, force it to return to page 1.
     if (reload === true) {
@@ -60,6 +63,7 @@ export default function Dashboard() {
       setReload(false);
     }
 
+    // Load meetups and store in a temporary array
     async function loadMeetups() {
       setRefreshing(true);
       setLoading(true);
@@ -99,20 +103,24 @@ export default function Dashboard() {
     loadMeetups();
   }, [currentDate, currentPage, reload]);
 
+  // Update date to be readable on title bar
   useEffect(() => {
     setReadableDate(formatDate(currentDate));
   }, [currentDate]);
 
+  // Go to next Day
   function nextDay() {
     setCurrentPage(1);
     setCurrentDate(addDays(currentDate, 1));
   }
 
+  // Go to previews day
   function previewsDay() {
     setCurrentPage(1);
     setCurrentDate(addDays(currentDate, -1));
   }
 
+  // Refresh screen
   function refresh() {
     setReload(true);
   }
