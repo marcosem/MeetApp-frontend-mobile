@@ -5,6 +5,7 @@ import { Platform, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { withNavigationFocus } from 'react-navigation';
 
 import api from '~/services/api';
 
@@ -17,7 +18,7 @@ import formatDate from '~/utils/formatDate';
 
 import { subscribeMeetupRequest } from '~/store/modules/meetup/actions';
 
-export default function Dashboard() {
+function Dashboard({ isFocused }) {
   const dispatch = useDispatch();
 
   const [meetups, setMeetups] = useState([]); // meetup list
@@ -54,6 +55,12 @@ export default function Dashboard() {
       setDoMerge(false);
     }
   }, [doMerge, loading, meetups, meetupsAux]);
+
+  useEffect(() => {
+    if (isFocused) {
+      setReload(true);
+    }
+  }, [isFocused]);
 
   // Reload the meetups list
   useEffect(() => {
@@ -101,7 +108,7 @@ export default function Dashboard() {
     }
 
     loadMeetups();
-  }, [currentDate, currentPage, reload]);
+  }, [currentDate, currentPage, isFocused, reload]);
 
   // Update date to be readable on title bar
   useEffect(() => {
@@ -177,3 +184,5 @@ Dashboard.navigationOptions = {
     <Icon name="format-list-bulleted" size={20} color={tintColor} />
   ),
 };
+
+export default withNavigationFocus(Dashboard);

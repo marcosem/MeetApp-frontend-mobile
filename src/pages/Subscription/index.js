@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { withNavigationFocus } from 'react-navigation';
 import api from '~/services/api';
 
 import Background from '~/components/Background';
@@ -16,11 +17,17 @@ import formatDate from '~/utils/formatDate';
 
 import { unsubscribeMeetupRequest } from '~/store/modules/meetup/actions';
 
-export default function Subscription() {
+function Subscription({ isFocused }) {
   const dispatch = useDispatch();
   const [subscriptions, setSubscriptions] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [reload, setReload] = useState(false); // Using this to handle realoading
+
+  useEffect(() => {
+    if (isFocused) {
+      setReload(true);
+    }
+  }, [isFocused]);
 
   // Reload the meetups list
   useEffect(() => {
@@ -105,3 +112,5 @@ Subscription.navigationOptions = {
     <Icon name="local-offer" size={20} color={tintColor} />
   ),
 };
+
+export default withNavigationFocus(Subscription);
