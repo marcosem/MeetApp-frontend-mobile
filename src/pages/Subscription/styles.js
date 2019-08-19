@@ -4,6 +4,7 @@ export const Container = styled.View`
   flex: 1;
 `;
 
+/*
 export const TitleView = styled.View`
   flex-direction: row;
   margin-top: 30px;
@@ -12,6 +13,7 @@ export const TitleView = styled.View`
   align-self: center;
 `;
 
+
 export const Title = styled.Text`
   font-size: 20px;
   color: #fff;
@@ -19,6 +21,7 @@ export const Title = styled.Text`
   align-self: center;
   margin: 0 20px;
 `;
+*/
 
 export const List = styled.FlatList.attrs({
   contentContainerStyle: { padding: 20 },

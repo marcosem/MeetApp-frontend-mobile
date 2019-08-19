@@ -22,6 +22,21 @@ export default function meetup(state = INITIAL_STATE, action) {
         break;
       }
 
+      case '@meetup/UNSUBSCRIBE_MEETUP_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+
+      case '@meetup/UNSUBSCRIBE_MEETUP_SUCCESS': {
+        draft.loading = false;
+        break;
+      }
+
+      case '@meetup/UNSUBSCRIBE_MEETUP_FAILED': {
+        draft.loading = false;
+        break;
+      }
+
       default:
     }
   });
