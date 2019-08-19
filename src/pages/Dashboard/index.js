@@ -26,6 +26,7 @@ export default function Dashboard() {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false); // Using Semaphores to handle infinit scrolling
   const [doMerge, setDoMerge] = useState(false); // Using Semaphores to handle infinit scrolling
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     // Using Semaphores to handle infinit scrolling
@@ -50,6 +51,12 @@ export default function Dashboard() {
   }, [doMerge, loading, meetups, meetupsAux]);
 
   useEffect(() => {
+    // if reload is changed, force it to return to page 1.
+    if (reload === true) {
+      setCurrentPage(1);
+      setReload(false);
+    }
+
     async function loadMeetups() {
       setRefreshing(true);
       setLoading(true);
@@ -87,7 +94,7 @@ export default function Dashboard() {
     }
 
     loadMeetups();
-  }, [currentDate, currentPage]);
+  }, [currentDate, currentPage, reload]);
 
   useEffect(() => {
     setReadableDate(formatDate(currentDate));
@@ -103,8 +110,8 @@ export default function Dashboard() {
     setCurrentDate(addDays(currentDate, -1));
   }
 
-  function reload() {
-    setCurrentPage(1);
+  function refresh() {
+    setReload(true);
   }
 
   function loadMore() {
@@ -130,9 +137,9 @@ export default function Dashboard() {
           </TitleView>
           <List
             data={meetups}
-            onRefresh={reload}
+            onRefresh={refresh}
             refreshing={refreshing}
-            onEndReachedThreshold={0.2}
+            onEndReachedThreshold={5}
             onEndReached={meetups.length / currentPage >= 10 ? loadMore : null}
             keyExtractor={item => String(item.id)}
             renderItem={({ item }) => <Meetup data={item} subscribe />}
