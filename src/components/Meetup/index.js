@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import {
   Container,
@@ -13,7 +14,9 @@ import {
   SubscribeButton,
 } from './styles';
 
-export default function Meetup({ data, subscribe }) {
+export default function Meetup({ data, subscribe, onButtonClick }) {
+  const loading = useSelector(state => state.meetup.loading);
+
   return (
     <Container past={data.isPast}>
       <TopImage>
@@ -43,7 +46,7 @@ export default function Meetup({ data, subscribe }) {
         </MeetupDetailsRow>
       </MeetupDetails>
       {!data.isPast && (
-        <SubscribeButton loading={false} onPress={() => {}}>
+        <SubscribeButton loading={loading} onPress={onButtonClick}>
           {subscribe ? 'Subscribe' : 'Cancel subscription'}
         </SubscribeButton>
       )}
@@ -53,24 +56,20 @@ export default function Meetup({ data, subscribe }) {
 
 Meetup.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.number,
     title: PropTypes.string,
-    description: PropTypes.string,
     location: PropTypes.string,
     date: PropTypes.string,
     user: PropTypes.shape({
       name: PropTypes.string,
-      email: PropTypes.string,
     }),
     banner: PropTypes.shape({
       url: PropTypes.string,
-      id: PropTypes.number,
-      path: PropTypes.string,
     }),
     formattedDate: PropTypes.string,
     isPast: PropTypes.bool,
   }).isRequired,
   subscribe: PropTypes.bool,
+  onButtonClick: PropTypes.func.isRequired,
 };
 
 Meetup.defaultProps = {

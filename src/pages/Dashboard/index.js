@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import { parseISO, addDays, isBefore } from 'date-fns';
-import { Platform } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '~/services/api';
@@ -9,11 +11,15 @@ import api from '~/services/api';
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 import Meetup from '~/components/Meetup';
-import { Container, TitleView, Arrow, Title, List } from './styles';
+import { Container, TitleView, Title, List } from './styles';
 
 import formatDate from '~/utils/formatDate';
 
+import { subscribeMeetupRequest } from '~/store/modules/meetup/actions';
+
 export default function Dashboard() {
+  const dispatch = useDispatch();
+
   const [meetups, setMeetups] = useState([]);
   const [meetupsAux, setMeetupsAux] = useState([]);
 
@@ -118,19 +124,23 @@ export default function Dashboard() {
     setCurrentPage(currentPage + 1);
   }
 
+  function handleSubscribe(id, title) {
+    dispatch(subscribeMeetupRequest(id, title));
+  }
+
   return (
     <>
       <Header />
       <Background>
         <Container>
           <TitleView>
-            <Arrow onPress={previewsDay}>
+            <TouchableOpacity onPress={previewsDay}>
               <Icon name="chevron-left" size={30} color="#fff" />
-            </Arrow>
+            </TouchableOpacity>
             <Title>{readableDate}</Title>
-            <Arrow onPress={nextDay}>
+            <TouchableOpacity onPress={nextDay}>
               <Icon name="keyboard-arrow-right" size={30} color="#fff" />
-            </Arrow>
+            </TouchableOpacity>
           </TitleView>
           <List
             data={meetups}
@@ -139,7 +149,13 @@ export default function Dashboard() {
             onEndReachedThreshold={5}
             onEndReached={meetups.length / currentPage >= 10 ? loadMore : null}
             keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => <Meetup data={item} subscribe />}
+            renderItem={({ item }) => (
+              <Meetup
+                onButtonClick={() => handleSubscribe(item.id, item.title)}
+                data={item}
+                subscribe
+              />
+            )}
           />
         </Container>
       </Background>

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { BaseButton } from 'react-native-gesture-handler';
+// import { BaseButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
@@ -13,10 +13,12 @@ export const TitleView = styled.View`
   align-self: center;
 `;
 
+/*
 export const Arrow = styled(BaseButton)`
   align-items: center;
   justify-content: center;
 `;
+*/
 
 export const Title = styled.Text`
   font-size: 20px;
