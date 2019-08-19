@@ -13,9 +13,6 @@ import { Container, TitleView, Arrow, Title, List } from './styles';
 
 import formatDate from '~/utils/formatDate';
 
-// See for infinite row:
-// https://github.com/marcosem/bootcamp-gostack-desafio-06/blob/master/src/pages/User/index.js
-
 export default function Dashboard() {
   const [meetups, setMeetups] = useState([]);
   const [meetupsAux, setMeetupsAux] = useState([]);
@@ -26,7 +23,7 @@ export default function Dashboard() {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false); // Using Semaphores to handle infinit scrolling
   const [doMerge, setDoMerge] = useState(false); // Using Semaphores to handle infinit scrolling
-  const [reload, setReload] = useState(false);
+  const [reload, setReload] = useState(false); // Using this to handle realoading
 
   useEffect(() => {
     // Using Semaphores to handle infinit scrolling
