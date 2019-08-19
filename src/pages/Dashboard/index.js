@@ -58,6 +58,7 @@ function Dashboard({ isFocused }) {
 
   useEffect(() => {
     if (isFocused) {
+      setCurrentPage(1);
       setReload(true);
     }
   }, [isFocused]);
